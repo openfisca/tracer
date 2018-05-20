@@ -5,7 +5,7 @@ const layoutStyle = {
   padding: 20,
   border: '1px solid #DDD',
   height: '100%',
-  'min-height': '800px'
+  minHeight: '800px'
 }
 
 const Layout = (props) => (

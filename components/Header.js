@@ -10,16 +10,14 @@ const Header = () => (
     <Head>
     </Head>
     <style jsx global>{`
-html, body {height: 100% }
+html, body {
+  height: 100%;
+  background-color: grey;
+}
+
     `}</style>
     <Link href="/">
       <a style={linkStyle}>Accueil</a>
-    </Link>
-    <Link href="/liste">
-      <a style={linkStyle}>Liste</a>
-    </Link>
-    <Link href="/ajout">
-      <a style={linkStyle}>Ajout</a>
     </Link>
   </div>
 )

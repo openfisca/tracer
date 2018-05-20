@@ -11,9 +11,9 @@ import input from '../input'
 const styleIndex = {/*
   display: 'flex',
   height: '100%',//*/
-  'min-height': '20px',
-  'flex-wrap': 'nowrap',
-  'align-items': 'stretch',
+  minHeight: '20px',
+  flexWrap: 'nowrap',
+  alignItems: 'stretch',
   justifyContent: 'space-between'
 }
 
@@ -71,8 +71,8 @@ class Index extends React.Component {
           <div>
             <select
               onChange={this.handleRootCalculation}>
-              {fixture.requestedCalculations.map((value) => (
-                <option key={value} value={value}>{value}</option>
+              {fixture.requestedCalculations.map((variableName) => (
+                <option key={variableName} value={variableName}>{variableName + ' ' + JSON.stringify(fixture.trace[variableName].value)}</option>
               ))}
             </select>
           </div>
