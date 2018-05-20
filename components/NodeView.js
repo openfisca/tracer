@@ -11,6 +11,8 @@ class NodeView extends React.Component {
   }
 
   handleDependencyClick(name) {
+    if (!this.props.repo[name].dependencies.length)
+      return
     this.setState({ [name]: !this.state[name] })
   }
 
@@ -31,20 +33,25 @@ class NodeView extends React.Component {
             background-color: lightgrey;
           }
 
+          .withDependency {
+            cursor: pointer;
+            text-decoration: underline;
+          }
+
           ul {
             padding: 0em 0em 0em 1em;
           }
         `}</style>
-        {this.props.root && this.props.repo[this.props.root].dependencies.map((value) => (
-          <ul key={value}>
+        {this.props.root && this.props.repo[this.props.root].dependencies.map((variableName) => (
+          <ul key={variableName}>
             <li>
-              <div className={'details ' + (this.props.repo[value]) } onClick={() => this.handleDependencyClick(value)}>
-                <div>{value} - {this.props.level}</div>
-                <div>{JSON.stringify(this.props.repo[value].value)}</div>
+              <div className={'details ' + (this.props.repo[variableName].dependencies.length ? 'withDependency' : '') } onClick={() => this.handleDependencyClick(variableName)}>
+                <div>{variableName}</div>
+                <div className="value">{JSON.stringify(this.props.repo[variableName].value)}</div>
               </div>  
               {
-                this.state[value] && (
-                  <NodeView root={value} repo={this.props.repo} level={this.props.level+1}/>
+                this.state[variableName] && (
+                  <NodeView root={variableName} repo={this.props.repo} level={this.props.level+1}/>
                 )
               }
             </li>
@@ -54,14 +61,5 @@ class NodeView extends React.Component {
     )
   }
 }
-/*
-NodeView.getInitialProps = async function() {
-
-  return {
-    shows: [],
-    adresses: [],
-    specs: specs
-  }
-}//*/
 
 export default NodeView
