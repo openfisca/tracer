@@ -23,7 +23,7 @@ class Index extends React.Component {
     super(props)
 
     this.handleHostChange = this.handleHostChange.bind(this);
-    this.handleRootCalculation = this.handleRootCalculation.bind(this);
+    this.handleRootCalculationChange = this.handleRootCalculationChange.bind(this);
     this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
 
     this.state = {
@@ -53,7 +53,7 @@ class Index extends React.Component {
       .then(result => result && this.setState({ resultat: result }))
   }
 
-  handleRootCalculation(event) {
+  handleRootCalculationChange(event) {
     this.setState({ root: event.target.value })
   }
 
@@ -80,7 +80,7 @@ class Index extends React.Component {
 
           <div>
             <select
-              onChange={this.handleRootCalculation}>
+              onChange={this.handleRootCalculationChange}>
               {fixture.requestedCalculations.map((variableName) => (
                 <option key={variableName} value={variableName}>{variableName + ' ' + JSON.stringify(fixture.trace[variableName].value)}</option>
               ))}
