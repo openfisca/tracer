@@ -22,33 +22,39 @@ class Index extends React.Component {
   constructor(props) {
     super(props)
 
-    this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
+    this.handleHostChange = this.handleHostChange.bind(this);
     this.handleRootCalculation = this.handleRootCalculation.bind(this);
+    this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
 
     this.state = {
+      host: 'http://127.0.0.1:2000',
       situation: JSON.stringify(input, null, 2),
       resultat: '',
       root: ''
     }
   }
 
-  handleTextAreaChange(value) {
-    this.setState({ situation: value.target.value })
+  handleHostChange(event) {
+    this.setState({ host: event.target.value })
+  }
 
-    fetch('http://127.0.0.1:2000/trace',
+  handleTextAreaChange(event) {
+    this.setState({ situation: event.target.value })
+
+    fetch(`${this.state.host}/trace`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: value.target.value
+        body: event.target.value
       })
       .then(result => result.text())
       .then(result => result && this.setState({ resultat: result }))
   }
 
-  handleRootCalculation(value) {
-    this.setState({ root: value.target.value })
+  handleRootCalculation(event) {
+    this.setState({ root: event.target.value })
   }
 
   render() {
@@ -60,6 +66,10 @@ class Index extends React.Component {
           }
         `}</style>
         <div style={styleIndex}>
+          <div>
+            <label for="host">OpenFisca base URL</label>
+            <input id="host" value={this.state.host} onChange={this.handleHostChange} />
+          </div>
           <textarea
             onChange={this.handleTextAreaChange}
             value={this.state.situation} />
@@ -76,8 +86,8 @@ class Index extends React.Component {
               ))}
             </select>
           </div>
-          <NodeView root={this.state.root} repo={fixture.trace} level={1}/>
         </div>
+        <NodeView root={this.state.root} repo={fixture.trace} level={1}/>
       </Layout>
     )
   }
@@ -93,7 +103,5 @@ Index.getInitialProps = async function() {
     specs: specs
   }
 }
-
-
 
 export default Index
