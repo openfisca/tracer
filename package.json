@@ -1,7 +1,7 @@
 {
-  "name": "tracer",
-  "version": "1.0.0",
-  "description": "## Qui ajoute",
+  "name": "openfisca-tracer",
+  "version": "0.1.0",
+  "description": "A basic tool to investigate OpenFisca computations",
   "scripts": {
     "build": "next build && next export",
     "dev": "next",
@@ -9,17 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guillett/tracer.git"
+    "url": "https://github.com/betagouv/openfisca-tracer.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/guillett/tracer/issues"
+    "url": "https://github.com/betagouv/openfisca-tracer"
   },
-  "homepage": "https://github.com/guillett/tracer#readme",
+  "homepage": "https://github.com/betagouv/openfisca-tracer#readme",
   "dependencies": {
-    "@zeit/next-css": "0.0.7",
+    "gh-pages": "^1.1.0",
     "isomorphic-unfetch": "^2.0.0",
     "next": "^6.0.3",
     "react": "^16.3.2",
