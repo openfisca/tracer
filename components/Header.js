@@ -8,17 +8,20 @@ const linkStyle = {
 const Header = () => (
   <div>
     <Head>
+      <link rel="stylesheet" href="static/main.css"/>
     </Head>
-    <style jsx global>{`
-html, body {
-  height: 100%;
-  background-color: grey;
-}
-
-    `}</style>
-    <Link href="/">
-      <a style={linkStyle}>Accueil</a>
-    </Link>
+    <header className="navbar">
+      <div className="navbar__container">
+        <Link href="/"><a className="navbar__home">Tracer</a></Link>
+        <nav>
+          <ul className="nav__links">
+            <li className="nav__item">
+              <Link href="/"><a>Home</a></Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
   </div>
 )
 
