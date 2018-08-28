@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/betagouv/openfisca-tracer#readme",
   "dependencies": {
-    "gh-pages": "^1.1.0",
+    "gh-pages": "^1.2.0",
     "isomorphic-unfetch": "^2.0.0",
-    "next": "^6.0.3",
+    "next": "^6.1.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-select": "^1.2.1"
