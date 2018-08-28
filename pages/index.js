@@ -72,7 +72,7 @@ class Index extends React.Component {
                 resize: vertical;
               }
             `}</style>
-            <div style={styleIndex}>
+            <div>
               <div className="form__group">
                 <label htmlFor="host">OpenFisca base URL</label>
                 <input id="host" value={this.state.host} onChange={this.handleHostChange}/>
