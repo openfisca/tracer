@@ -2,6 +2,7 @@ import React from 'react'
 import Layout from '../components/Layout'
 import fetch from 'isomorphic-unfetch'
 import input from '../input'
+import Modal from 'react-modal'
 
 import dynamic from 'next/dynamic'
 const JSONView = dynamic(
@@ -12,6 +13,18 @@ const TreeBeard = dynamic(
   import('../components/TreeBeard'),
   { ssr: false }
 )
+
+const modalStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)',
+    minWidth              : '50%'
+  }
+};
 
 class Index extends React.Component {
 
@@ -26,6 +39,8 @@ class Index extends React.Component {
       root: '',
       treeData: [],
       situation: {},
+      modalIsOpen: false,
+      textareaValue: ''
     }
 
     this.fetchSource = this.fetchSource.bind(this);
@@ -34,6 +49,12 @@ class Index extends React.Component {
     this.handleRootCalculationChange = this.handleRootCalculationChange.bind(this);
     this.handleSourceChange = this.handleSourceChange.bind(this);
     this.hasTrace = this.hasTrace.bind(this);
+
+    this.openModal = this.openModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.onTextAreaChange = this.onTextAreaChange.bind(this);
+    this.updateJSON = this.updateJSON.bind(this);
   }
 
   componentDidMount() {
@@ -72,6 +93,10 @@ class Index extends React.Component {
 
   fetchSource() {
 
+    if (!this.state.source) {
+      return
+    }
+
     this.setState({
       error: false
     })
@@ -107,8 +132,11 @@ class Index extends React.Component {
         body: JSON.stringify(this.state.situation)
       })
       .then(response => {
-        return response.json().then(json => {
-          return response.ok ? json : Promise.reject(json.error)
+        if (response.ok) {
+          return response.json()
+        }
+        return response.text().then(text => {
+          return Promise.reject(text)
         })
       })
       .then(result => {
@@ -180,6 +208,32 @@ class Index extends React.Component {
     })
   }
 
+  openModal() {
+    this.setState({modalIsOpen: true});
+  }
+
+  afterOpenModal() {
+    this.textarea.focus()
+  }
+
+  closeModal() {
+    this.setState({ modalIsOpen: false });
+  }
+
+  onTextAreaChange(e) {
+    this.setState({ textareaValue: e.target.value })
+  }
+
+  updateJSON() {
+    const { textareaValue } = this.state
+
+    this.setState({
+      situation: JSON.parse(textareaValue),
+      textareaValue: '',
+      modalIsOpen: false
+    })
+  }
+
   render() {
     return (
       <Layout>
@@ -203,14 +257,19 @@ class Index extends React.Component {
               <div className="form__group">
                 <label htmlFor="host">OpenFisca base URL</label>
                 <input id="host" value={this.state.host} onChange={this.handleHostChange}/>
+                <span className="help">The base URL of the OpenFisca server</span>
               </div>
               <div className="form__group">
-                <label htmlFor="source">OpenFisca request source URL</label>
+                <label htmlFor="source">OpenFisca request source URL (optional)</label>
                 <input id="source" value={this.state.source} onChange={this.handleSourceChange}/>
+                <span className="help">An optional URL retrieving a OpenFisca request</span>
               </div>
               <div className="form__group">
                 <label htmlFor="request">Request content</label>
-                <JSONView src={ this.state.situation } onChange={ situation => this.setState({ situation }) } />
+                <div className="jsonview-wrapper">
+                  <JSONView src={ this.state.situation } onChange={ situation => this.setState({ situation }) } />
+                </div>
+                <button className="button small" onClick={ this.openModal }>Paste raw JSON</button>
               </div>
               { this.state.loading && (
                 <div className="form__group">Loading…</div>
@@ -237,6 +296,20 @@ class Index extends React.Component {
             </div>
           </div>
         </section>
+        <Modal
+          isOpen={ this.state.modalIsOpen }
+          onAfterOpen={ this.afterOpenModal }
+          onRequestClose={ this.closeModal }
+          style={ modalStyles }
+          contentLabel="Paste">
+          <div className="form__group">
+            <label htmlFor="past">Paste JSON below</label>
+            <textarea id="paste" onChange={ this.onTextAreaChange } ref={ textarea => this.textarea = textarea }></textarea>
+          </div>
+          <div className="form__group">
+            <button className="button" onClick={ this.updateJSON }>GO!</button>
+          </div>
+        </Modal>
       </Layout>
     )
   }

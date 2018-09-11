@@ -25,6 +25,7 @@
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-json-view": "^1.19.1",
+    "react-modal": "^3.5.1",
     "react-treebeard": "^2.1.0"
   }
 }
