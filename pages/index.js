@@ -301,7 +301,8 @@ class Index extends React.Component {
           onAfterOpen={ this.afterOpenModal }
           onRequestClose={ this.closeModal }
           style={ modalStyles }
-          contentLabel="Paste">
+          contentLabel="Paste"
+          ariaHideApp={ false }>
           <div className="form__group">
             <label htmlFor="past">Paste JSON below</label>
             <textarea id="paste" onChange={ this.onTextAreaChange } ref={ textarea => this.textarea = textarea }></textarea>
