@@ -206,7 +206,7 @@ class Index extends React.Component {
               </div>
               <div className="form__group">
                 <label htmlFor="request">Request content</label>
-                <JSONView src={ this.state.situation } theme="monokai" onChange={ situation => this.setState({ situation }) } />
+                <JSONView src={ this.state.situation } onChange={ situation => this.setState({ situation }) } />
               </div>
               { this.state.loading && (
                 <div className="form__group">Loading…</div>
