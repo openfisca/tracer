@@ -18,6 +18,6 @@ export default (props) => {
       onAdd={ event => onChange(event, props.onChange) }
       onDelete={ event => onChange(event, props.onChange) }
       onEdit={ event => onChange(event, props.onChange) }
-      theme="monokai" />
+      theme="rjv-default" />
   )
 }
