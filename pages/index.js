@@ -106,7 +106,11 @@ class Index extends React.Component {
         },
         body: JSON.stringify(this.state.situation)
       })
-      .then(result => result.json())
+      .then(response => {
+        return response.json().then(json => {
+          return response.ok ? json : Promise.reject(json.error)
+        })
+      })
       .then(result => {
         result.requestedCalculations.sort()
         return result
