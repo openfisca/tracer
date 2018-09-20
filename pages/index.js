@@ -31,6 +31,8 @@ class Index extends React.Component {
   constructor(props) {
     super(props)
 
+    const defaultSituation = {}
+
     this.state = {
       loading: false,
       host: 'https://openfisca.mes-aides.gouv.fr',
@@ -38,9 +40,9 @@ class Index extends React.Component {
       result: {},
       root: '',
       treeData: [],
-      situation: {},
+      situation: defaultSituation,
       modalIsOpen: false,
-      textareaValue: ''
+      textareaValue: JSON.stringify(defaultSituation, null, 4)
     }
 
     this.fetchSource = this.fetchSource.bind(this);
@@ -209,7 +211,10 @@ class Index extends React.Component {
   }
 
   openModal() {
-    this.setState({modalIsOpen: true});
+    this.setState({
+      modalIsOpen: true,
+      textareaValue: JSON.stringify(this.state.situation, null, 4)
+    });
   }
 
   afterOpenModal() {
@@ -269,7 +274,7 @@ class Index extends React.Component {
                 <div className="jsonview-wrapper">
                   <JSONView src={ this.state.situation } onChange={ situation => this.setState({ situation }) } />
                 </div>
-                <button className="button small" onClick={ this.openModal }>Paste raw JSON</button>
+                <button className="button small" onClick={ this.openModal }>Edit raw JSON</button>
               </div>
               { this.state.loading && (
                 <div className="form__group">Loading…</div>
@@ -305,7 +310,7 @@ class Index extends React.Component {
           ariaHideApp={ false }>
           <div className="form__group">
             <label htmlFor="past">Paste JSON below</label>
-            <textarea id="paste" onChange={ this.onTextAreaChange } ref={ textarea => this.textarea = textarea }></textarea>
+            <textarea id="paste" value={ this.state.textareaValue } onChange={ this.onTextAreaChange } ref={ textarea => this.textarea = textarea }></textarea>
           </div>
           <div className="form__group">
             <button className="button" onClick={ this.updateJSON }>GO!</button>
