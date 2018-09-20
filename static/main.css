@@ -1498,3 +1498,16 @@ article {
 .form__group + .button {
   margin-top: 2em;
 }
+
+.help {
+  display: block;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #bebebe;
+}
+
+.jsonview-wrapper {
+  margin-bottom: 0.5em;
+  padding: 1em;
+  border: 1px solid #bebebe;
+}
