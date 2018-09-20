@@ -4,7 +4,7 @@
   "description": "A basic tool to investigate OpenFisca computations",
   "scripts": {
     "build": "next build && next export",
-    "deploy": "gh-pages -d out",
+    "deploy": "touch out/.nojekyll && gh-pages -d out --dotfiles",
     "dev": "next",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
