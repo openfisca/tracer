@@ -12,7 +12,7 @@ export default (props) => {
   return (
     <JSONView { ...props }
       indentWidth={ 2 }
-      collapsed={ 1 }
+      collapsed={ false }
       enableClipboard={ false }
       name={ false }
       onAdd={ event => onChange(event, props.onChange) }
