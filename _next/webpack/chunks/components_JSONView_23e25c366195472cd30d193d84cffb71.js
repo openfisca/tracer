@@ -35,7 +35,7 @@ var onChange = function onChange(_ref, _onChange) {
 /* harmony default export */ __webpack_exports__["default"] = (function (props) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_json_view___default.a, _extends({}, props, {
     indentWidth: 2,
-    collapsed: 1,
+    collapsed: false,
     enableClipboard: false,
     name: false,
     onAdd: function onAdd(event) {
