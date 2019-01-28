@@ -35,19 +35,31 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 __WEBPACK_IMPORTED_MODULE_1_react_treebeard__["decorators"].Header = function (_ref) {
   var node = _ref.node,
       style = _ref.style;
+  var nodeName = node.name;
+
+  if (node.type === 'parameter') {
+    nodeName = "[P] ".concat(node.name);
+  }
+
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
     style: style.base,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 6
+      lineNumber: 12
     }
   }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
     style: style.title,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 7
+      lineNumber: 13
     }
-  }, node.name), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
+    className: "node__name--".concat(node.type),
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 14
+    }
+  }, nodeName)), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
     style: {
       position: 'absolute',
       right: 5,
@@ -55,9 +67,15 @@ __WEBPACK_IMPORTED_MODULE_1_react_treebeard__["decorators"].Header = function (_
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 10
+      lineNumber: 16
     }
-  }, JSON.stringify(node.value)));
+  }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
+    className: "node__value--".concat(node.type),
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 17
+    }
+  }, JSON.stringify(node.value))));
 };
 
 var TreeBeardComponent =
@@ -93,7 +111,7 @@ function (_Component) {
         decorators: __WEBPACK_IMPORTED_MODULE_1_react_treebeard__["decorators"],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 36
+          lineNumber: 44
         }
       });
     }
@@ -106,7 +124,7 @@ function (_Component) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(TreeBeardComponent, _extends({}, props, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 46
+      lineNumber: 54
     }
   }));
 });
