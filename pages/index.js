@@ -177,6 +177,7 @@ class Index extends React.Component {
     return result.trace[dependency].dependencies.map(dependency => {
       return {
         name: dependency,
+        type: 'variable',
         toggled: false,
         children: [],
         value: result.trace[dependency].value
@@ -192,14 +193,29 @@ class Index extends React.Component {
       return []
     }
 
-    return result.trace[dependency].dependencies.map(dependency => {
+    const children = result.trace[dependency].dependencies.map(dependency => {
       return {
         name: dependency,
+        type: 'variable',
         toggle: false,
         children: result.trace[dependency].dependencies.length > 0 ? [] : null,
         value: result.trace[dependency].value
       }
     })
+
+    if (Object.keys(result.trace[dependency].parameters).length > 0) {
+      for (let parameterName in result.trace[dependency].parameters) {
+        children.push({
+          name: parameterName,
+          type: 'parameter',
+          toggle: false,
+          children: null,
+          value: result.trace[dependency].parameters[parameterName]
+        })
+      }
+    }
+
+    return children
   }
 
   handleRootCalculationChange(event) {

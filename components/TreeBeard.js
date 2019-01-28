@@ -2,13 +2,21 @@ import React, { Component } from 'react'
 import { Treebeard, decorators } from 'react-treebeard';
 
 decorators.Header = ({ node, style }) => {
+
+  let nodeName = node.name
+  if (node.type === 'parameter') {
+    nodeName = `[P] ${node.name}`
+  }
+
   return (
     <div style={ style.base }>
       <div style={ style.title }>
-          {node.name}
+        <span className={ `node__name--${node.type}` }>{ nodeName }</span>
       </div>
       <div style={{ position: 'absolute', right: 5, top: 0 }}>
-        { JSON.stringify(node.value) }
+        <span className={ `node__value--${node.type}` }>
+          { JSON.stringify(node.value) }
+        </span>
       </div>
     </div>
   )
@@ -29,7 +37,7 @@ class TreeBeardComponent extends Component {
     node.toggled = toggled
 
     this.setState({ cursor: node });
-}
+  }
 
   render() {
     return (

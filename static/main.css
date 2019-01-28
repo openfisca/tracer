@@ -1511,3 +1511,8 @@ article {
   padding: 1em;
   border: 1px solid #bebebe;
 }
+
+span.node__name--parameter,
+span.node__value--parameter {
+  color: #FFDC00;
+}
