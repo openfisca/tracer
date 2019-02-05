@@ -47,6 +47,7 @@ class Index extends React.Component {
 
     this.fetchSource = this.fetchSource.bind(this);
     this.fetchTrace = this.fetchTrace.bind(this);
+    this.fetchVariableDictionary = this.fetchVariableDictionary.bind(this);
     this.handleHostChange = this.handleHostChange.bind(this);
     this.handleRootCalculationChange = this.handleRootCalculationChange.bind(this);
     this.handleSourceChange = this.handleSourceChange.bind(this);
@@ -81,6 +82,8 @@ class Index extends React.Component {
     if (newState.hasOwnProperty('host') || newState.hasOwnProperty('source')) {
       this.setState(newState)
     }
+
+    this.fetchVariableDictionary()
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -161,6 +164,26 @@ class Index extends React.Component {
       })
   }
 
+  fetchVariableDictionary() {
+    if (this.state.variables) {
+      return this.state.variables
+    }
+    return fetch(`${this.state.host}/variables`)
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        }
+        return response.text().then(text => {
+          return Promise.reject(text)
+        })
+      })
+      .then(result => {
+        this.setState({
+          variables: result
+        })
+      })
+  }
+
   hasTrace() {
     return !this.state.loading && this.state.result && this.state.result.requestedCalculations
   }
@@ -173,10 +196,20 @@ class Index extends React.Component {
     this.setState({ source: event.target.value })
   }
 
+  _getLabel(dependency) {
+    let label = dependency
+    if (this.state.variables) {
+      var name = dependency.split("<")[0]
+      label = (this.state.variables[name] && this.state.variables[name].description) || dependency
+    }
+    return label
+  }
+
   _computeTreeData(result, dependency) {
     return result.trace[dependency].dependencies.map(dependency => {
       return {
         name: dependency,
+        label: this._getLabel(dependency),
         type: 'variable',
         toggled: false,
         children: [],
@@ -196,6 +229,7 @@ class Index extends React.Component {
     const children = result.trace[dependency].dependencies.map(dependency => {
       return {
         name: dependency,
+        label: this._getLabel(dependency),
         type: 'variable',
         toggle: false,
         children: result.trace[dependency].dependencies.length > 0 ? [] : null,
@@ -207,6 +241,7 @@ class Index extends React.Component {
       for (let parameterName in result.trace[dependency].parameters) {
         children.push({
           name: parameterName,
+          label: this._getLabel(dependency),
           type: 'parameter',
           toggle: false,
           children: null,
