@@ -3,12 +3,19 @@ import { Treebeard, decorators } from 'react-treebeard';
 
 decorators.Header = ({ node, style }) => {
 
-  let nodeName = node.label || node.name
+  let nodeName = node.name
+  let prefix = ''
+
+  if (node.label) {
+    nodeName = node.label
+    prefix = node.name
+  }
+
   if (node.type === 'parameter') {
+    prefix = ''
     nodeName = `[P] ${node.name}`
   }
 
-  let prefix = node.name != nodeName ? node.name : ''
 
   return (
     <div style={ style.base }>
