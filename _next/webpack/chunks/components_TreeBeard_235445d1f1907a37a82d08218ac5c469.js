@@ -35,31 +35,32 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 __WEBPACK_IMPORTED_MODULE_1_react_treebeard__["decorators"].Header = function (_ref) {
   var node = _ref.node,
       style = _ref.style;
-  var nodeName = node.name;
+  var nodeName = node.label || node.name;
 
   if (node.type === 'parameter') {
     nodeName = "[P] ".concat(node.name);
   }
 
+  var prefix = node.name != nodeName ? node.name : '';
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
     style: style.base,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 12
+      lineNumber: 14
     }
   }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
     style: style.title,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 13
+      lineNumber: 15
     }
   }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
     className: "node__name--".concat(node.type),
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 14
+      lineNumber: 16
     }
-  }, nodeName)), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
+  }, prefix, " ", nodeName)), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
     style: {
       position: 'absolute',
       right: 5,
@@ -67,13 +68,13 @@ __WEBPACK_IMPORTED_MODULE_1_react_treebeard__["decorators"].Header = function (_
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 16
+      lineNumber: 18
     }
   }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("span", {
     className: "node__value--".concat(node.type),
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 17
+      lineNumber: 19
     }
   }, JSON.stringify(node.value))));
 };
@@ -111,7 +112,7 @@ function (_Component) {
         decorators: __WEBPACK_IMPORTED_MODULE_1_react_treebeard__["decorators"],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 44
+          lineNumber: 46
         }
       });
     }
@@ -124,7 +125,7 @@ function (_Component) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(TreeBeardComponent, _extends({}, props, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 54
+      lineNumber: 56
     }
   }));
 });
