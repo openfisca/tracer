@@ -301,6 +301,9 @@ class Index extends React.Component {
           .error {
             background-color: #ec7676;
           }
+          .container {
+            max-width: calc(100% - 50px);
+          }
         `}</style>
         <section className={ this.state.error ? 'error' : ''}>
           <div className="container">
