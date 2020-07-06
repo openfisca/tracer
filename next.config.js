@@ -3,7 +3,7 @@ const withCSS = require('@zeit/next-css')
 const withImages = require('next-images')
 
 module.exports = withCSS(withImages({
-  assetPrefix: isProduction ? '/openfisca-tracer' : '',
+  assetPrefix: isProduction ? '/tracer' : '',
   exportPathMap: function(defaultPathMap) {
     return {
       '/': { page: '/' }

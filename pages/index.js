@@ -35,7 +35,7 @@ class Index extends React.Component {
 
     this.state = {
       loading: false,
-      host: 'https://openfisca.mes-aides.gouv.fr',
+      host: 'https://openfisca.mes-aides.org',
       source: '',
       result: {},
       root: '',
