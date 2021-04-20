@@ -138,7 +138,8 @@ class Index extends React.Component {
       })
       .then(response => {
         if (response.ok) {
-          return response.text().then(text => {return JSON.parse(text.replace('Infinity', '-1')) })
+          return response.text().then(text => {
+            return JSON.parse(text.replace(/-?Infinity/g, '{}      ').replace(/NaN/g, '{} ')) })
         }
         return response.text().then(text => {
           return Promise.reject(text)
