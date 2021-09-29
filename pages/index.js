@@ -331,6 +331,29 @@ class Index extends React.Component {
                 </div>
                 <button className="button small" onClick={ this.openModal }>Edit raw JSON</button>
               </div>
+              {
+                this.state.result && this.state.result.entitiesDescription && (
+                  <div>
+                    <p>Entity structure</p>
+                    <div>
+                          <ul>
+                            {
+                              Object.keys(this.state.result.entitiesDescription).map((entity) => (
+                                  <li>
+                                    {entity}
+                                    <ul>
+                                      {this.state.result.entitiesDescription[entity].map((member) => (
+                                          <li>{member}</li>
+                                      ))}
+                                    </ul>
+                                  </li>
+                              ))
+                            }
+                          </ul>
+                    </div>
+                  </div>
+                )
+              }
               { this.state.loading && (
                 <div className="form__group">Loading…</div>
               )}
